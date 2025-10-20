@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Redirecting...</title>
+  <script>
+    // Query parameters থেকে তথ্য আনো
+    const params = new URLSearchParams(location.search);
+    const title = decodeURIComponent(params.get("title") || "Custom Link");
+    const desc = decodeURIComponent(params.get("desc") || "Visit this link");
+    const image = decodeURIComponent(params.get("image") || "");
+    const target = decodeURIComponent(params.get("url") || "/");
+
+    // Open Graph tags dynamically inject
+    document.write(`
+      <meta property="og:title" content="${title}" />
+      <meta property="og:description" content="${desc}" />
+      <meta property="og:image" content="${image}" />
+      <meta property="og:url" content="${location.href}" />
+      <meta name="twitter:card" content="summary_large_image" />
+    `);
+  </script>
+</head>
+<body>
+  <p>Redirecting to destination...</p>
+  <script>
+    // Facebook crawler ধরো না, মানুষ হলে redirect করো
+    if (!/facebookexternalhit|Facebot|Twitterbot/i.test(navigator.userAgent)) {
+      const params = new URLSearchParams(location.search);
+      const dest = decodeURIComponent(params.get("url") || "/");
+      setTimeout(() => location.replace(dest), 1000);
+    }
+  </script>
+</body>
+</html>
