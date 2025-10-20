@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Thumbnail Redirector</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0f111a;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 { color: #00ffcc; }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      background: #00ffcc;
+      color: #000;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover { opacity: 0.8; }
+    .output {
+      margin-top: 1.5rem;
+      background: #1c1f2b;
+      padding: 1rem;
+      border-radius: 10px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔗 Custom Thumbnail Redirector</h1>
+  <p>Enter your destination URL and custom thumbnail details:</p>
+
+  <input id="url" placeholder="Destination URL (যেখানে যাবে)" />
+  <input id="title" placeholder="Title (Facebook-এ দেখাবে)" />
+  <textarea id="desc" placeholder="Description (optional)"></textarea>
+  <input id="image" placeholder="Thumbnail Image URL" />
+
+  <button onclick="generate()">Generate Redirect Link</button>
+
+  <div class="output" id="output"></div>
+
+  <script>
+    function generate() {
+      const url = encodeURIComponent(document.getElementById('url').value);
+      const title = encodeURIComponent(document.getElementById('title').value);
+      const desc = encodeURIComponent(document.getElementById('desc').value);
+      const image = encodeURIComponent(document.getElementById('image').value);
+      const base = window.location.origin;
+      const link = `${base}/redirect.html?url=${url}&title=${title}&desc=${desc}&image=${image}`;
+      document.getElementById('output').innerHTML = `
+        <p>Your Redirect Link:</p>
+        <code>${link}</code>
+      `;
+    }
+  </script>
+</body>
+</html>
